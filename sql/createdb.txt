@@ -1,0 +1,3 @@
+CREATE USER 'fringilla'@'localhost' IDENTIFIED BY 'fringilla';
+CREATE DATABASE fringilla;
+GRANT ALL PRIVILEGES on fringilla.* TO 'fringilla'@'localhost' WITH GRANT OPTION;
