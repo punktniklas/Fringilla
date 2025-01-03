@@ -64,7 +64,7 @@ CREATE TABLE Games (
   FOREIGN KEY (Home) REFERENCES Teams(TeamId),
   FOREIGN KEY (Away) REFERENCES Teams(TeamId)
 );
-CREATE UNIQUE INDEX GamesNhlId ON Gamess(NhlId);
+CREATE UNIQUE INDEX GamesNhlId ON Games(NhlId);
 
 CREATE TABLE Users (
   UserId VARCHAR(20) NOT NULL,
