@@ -45,9 +45,7 @@ foreach ($_POST as $key => $val) {
   function copyToClipboard(elm_id) {
     var copyText = document.getElementById("bettxt");
     var text = copyText.innerText;
-    //alert("Foo: " + text);
-    navigator.clipboard.writeText("Foo");
-    alert("Copied the text: " + text);
+    navigator.clipboard.writeText(text);
   }
 </script>
 
