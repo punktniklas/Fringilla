@@ -77,7 +77,7 @@ foreach ($_POST as $key => $val) {
 
   while($row = $result->fetch_assoc()) {
     $winner = $row["Winner"];
-    echo $row["Home"] . " - " . $row["Away"] . " " . (empty($winner) ? "X" : $winner) . "<br/>\n";
+    echo $row["Home"] . "-" . $row["Away"] . " " . (empty($winner) ? "X" : $winner) . "<br/>\n";
   }
   
 ?>
