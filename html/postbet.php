@@ -83,8 +83,9 @@ foreach ($_POST as $key => $val) {
 ?>
 </td></tr>
 </table>
-<button onclick="copyToClipboard('bettxt')">Kopiera</button><br/>
-Klicka på Kopiera-knappen för att kopiera din tipsrad till klipbordet för enkel inklistring i bloggspåret.
+<button onclick="copyToClipboard('bettxt')">Kopiera</button><p/>
+Klicka på Kopiera-knappen för att kopiera din tipsrad<br/>
+till klippbordet för enkel inklistring i bloggspåret.
 <p/>
 <a href="bet.php?day=<?php echo $day; ?>">Ändra tipset</a>
 
