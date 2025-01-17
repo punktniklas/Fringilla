@@ -31,6 +31,7 @@
       </select><p/>
       <select name="editday">
 <?php
+  date_default_timezone_set("America/Los_Angeles");
   $today = date("Y-m-d");
   $result = $conn->query("SELECT DISTINCT Date FROM Games ORDER BY Date;");
   while($row = $result->fetch_assoc()) {
