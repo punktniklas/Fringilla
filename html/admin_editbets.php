@@ -31,9 +31,10 @@
       </select><p/>
       <select name="editday">
 <?php
+  $today = date("Y-m-d");
   $result = $conn->query("SELECT DISTINCT Date FROM Games ORDER BY Date;");
   while($row = $result->fetch_assoc()) {
-    echo "<option value='" . $row["Date"] . "'>" . $row["Date"] . "</option>\n";
+    echo "<option value='" . $row["Date"] . "'" . ($row["Date"] == $today ? " selected='true'" : "") . ">" . $row["Date"] . "</option>\n";
   }
 ?>
       </select><p/>

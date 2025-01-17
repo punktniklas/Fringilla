@@ -27,7 +27,7 @@
     <form action="admin_postbet.php" method="POST">
     <input type="hidden" name="edituser" value="<?php echo $edituser;?>"/>
     <table>
-      <tr><th colspan=2>Hemma</th><th></th><th colspan=2>Borta</th><th>Radera</th></tr>
+      <tr><th colspan=2>Hemma</th><th></th><th colspan=2>Borta</th><th></th><th>Radera</th></tr>
 <?php
 
   $stmt = $conn->prepare(
@@ -51,7 +51,8 @@
     echo "<td>-</td>\n";    
     echo "<td><input type='radio' name='winner-$gameid' value='2'" . ($winner == 2 ? " checked=true" : "") . "/></td>\n";
     echo "<td>" . $row["Away"] . "</td>\n";
-    echo "<td><input type='radio' name='winner-$gameid' value='0'/></td>\n";
+    echo "<td>|</td>\n";    
+    echo "<td style='text-align: center; vertical-align: middle;'><input type='radio' name='winner-$gameid' value='0'/></td>\n";
     echo "</tr>\n";
   }
 ?>
