@@ -60,6 +60,28 @@
     <input type='submit' value='Ändra'>
     </form>
 
+<?php
+  $invalidlines = array_key_exists("invalidlines", $_GET) ? $_GET["invalidlines"] : "";
+
+  if(!empty($invalidlines)) {
+    echo "<p class='errortext'>Kunde inte tolka följande rader:</p>\n";
+    echo "<ul class='errortext'>\n";
+    foreach(explode('#', $invalidlines) as $line) {
+      echo "<li>$line</li/>\n";
+    }
+    echo "</ul>\n";
+  }
+?>
+
+    <p/>
+    <h3>Importera tips från bloggen</h3>
+    <form action="admin_importbet.php" method="POST">
+      <input type="hidden" name="edituser" value="<?php echo $edituser;?>"/>
+      <input type="hidden" name="editday" value="<?php echo $editday;?>"/>
+      <textarea name="betstr" rows="20" cols="50"></textarea><br/>
+      <input type='submit' value='Importera'>
+    </form>
+
 </td>
 </tr>
 </table>
