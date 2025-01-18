@@ -35,7 +35,7 @@
   $result = $stmt->get_result();
 
   while($row = $result->fetch_assoc()) {
-    echo "<tr><td>" . $row["Name"] . "</td><td>" . $row["Lollipops"] . "</td></tr>";
+    echo "<tr><td class='infotablecellwithpad'>" . $row["Name"] . "</td><td>" . $row["Lollipops"] . "</td></tr>";
   }
 ?>
 </table>
