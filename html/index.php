@@ -28,31 +28,50 @@ if($row = $result->fetch_assoc()) {
   echo "Inga resultat än.<p/>";
 }
 ?>
-    </ul>
+
+<h2>Tippa</h2>
 
 <?php
-  if(!empty($user)) {
-?>
+if(!empty($user)) {
+  date_default_timezone_set("America/Los_Angeles");
+  $today = date("Y-m-d");
+  $sql = "SELECT 1 FROM Games WHERE Date = '$today' LIMIT 1";
+  $result = $conn->query($sql);
 
-    <h2>Tippa</h2>
-
-<?php
-date_default_timezone_set("America/Los_Angeles");
-$today = date("Y-m-d");
-$sql = "SELECT 1 FROM Games WHERE Date = '$today' LIMIT 1";
-$result = $conn->query($sql);
-
-if($row = $result->fetch_assoc()) {
-  echo "Klicka här för att <a href='bet.php?day=$today'>tippa dagens matcher</a> ($today)<br/>\n";
-} else {
-  echo "Inga matcher att tippa idag ($today)<br/>\n";
-}
-echo "Klicka här för <a href='allbetdays.php'>övriga tipsdagar</a><p/>\n";
-?>
-    </ul>
-<?php
+  if($row = $result->fetch_assoc()) {
+    echo "Klicka här för att <a href='bet.php?day=$today'>tippa dagens matcher</a> ($today)<br/>\n";
+  } else {
+    echo "Inga matcher att tippa idag ($today)<br/>\n";
+  }
+  echo "Klicka här för <a href='allbetdays.php'>övriga tipsdagar</a><p/>\n";
+  } else {
+    echo "Logga in för att tippa.<p/>";
   }
 ?>
+
+<h2>Topp 10</h2>
+    
+<table>
+<?php
+
+  $stmt = $conn->prepare(
+    "SELECT u.Name, SUM(b.Winner = g.Winner) AS Points " .
+    "FROM Bets b " .
+    "JOIN Games g USING (GameId) " .
+    "JOIN Users u USING (UserId) " .
+    "WHERE g.SeasonId = ? AND g.Winner IS NOT NULL " .
+    "GROUP BY UserId " .
+    "ORDER BY Points DESC " .
+    "LIMIT 10;");
+  $stmt->bind_param("s", $currentSeason);
+  $stmt->execute();
+  $result = $stmt->get_result();
+
+  while($row = $result->fetch_assoc()) {
+    echo "<tr><td>" . $row["Name"] . "</td><td>" . $row["Points"] . "</td></tr>";
+  }
+?>
+</table>
 
     </td>
   </tr>
