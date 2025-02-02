@@ -14,7 +14,8 @@ if(empty($user)) {
     echo "<span class='errortext'>Inloggningen misslyckades.</span><br/>";
     unset($_SESSION["badlogin"]);
   }
-  echo "<a href='newuser.php'>Registrera ny användare</a>";
+  echo "<a href='newuser.php'>Registrera ny användare</a><br/>\n";
+  echo "<a href='forgotpwd.php'>Glömt lösen</a>\n";
 } else {
   echo "Inloggad:<br/>" . $_SESSION["fullname"] . "<br/>";
 ?>

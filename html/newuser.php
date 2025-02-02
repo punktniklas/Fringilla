@@ -107,7 +107,7 @@ function isUserIdTaken($id, $conn) {
     <tr><td>Lösen</td><td><input type="password" name="password1" maxlength=30 value="<?php echo $password1;?>"/></td><td class="errortext"><?php echo $password1Err;?></td></tr>
     <tr><td>Bekräfta lösen</td><td><input type="password" name="password2" maxlength=30 value="<?php echo $password2;?>"/></td><td class="errortext"><?php echo $password2Err;?></td></tr>
     </table>
-    <input type='submit' value='Registrera'>
+    <input type='submit' value='Registrera'/>
     </form>
 
 </td>
