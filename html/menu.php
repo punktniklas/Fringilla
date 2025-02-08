@@ -28,10 +28,11 @@ if(empty($user)) {
 
 <hr/>
 
-<h3>Topplistor</h3>
+<h3>Statistik</h3>
 <a href="standings.php?season=20242025-2">Totalen</a><br/>
 <a href="golds.php?season=20242025-2">Guldligan</a><br/>
 <a href="lollipops.php?season=20242025-2">Klubbligan</a><br/>
+<a href="perteam.php?season=20242025-2">Tips per lag</a><br/>
 
 <?php
   if(array_key_exists("isadmin", $_SESSION)) {
