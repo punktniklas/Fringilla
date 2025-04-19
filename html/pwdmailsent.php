@@ -18,7 +18,7 @@
     <td valign="top" id="main">
 
 <h1>E-post skickat</h1>
-Ett e-post med en länk för att kunna ange ett nytt lösenord har skickats. Förhoppningsvis kommer det också fram genom världens alla spam-filter...
+Ett e-post med en länk för att kunna ange ett nytt lösenord har skickats. Förhoppningsvis kommer det också fram genom världens alla spam-filter... Om du inte får något e-post inom några minuter, kontakta niklas@nilin.se
 </td>
 </tr>
 </table>

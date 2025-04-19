@@ -36,16 +36,19 @@
 
 $url = $baseUrl . "resetpwd.php?code=$code";
 
-$subject = "Lösenord för NHL-tipset";
+$subject = "NHL-tipset password";
 $txt =
   "Hej!\r\n\r\n" .
   "Någon, förhoppningsvis du, har klickat på länken för glömt lösenord för NHL-tipset.\r\n" .
   "Användarnamn: $dbuserid\r\n" .
   "Klicka på denna länk för att ange ett nytt lösenord.\r\n" .
   "$url\r\n";
-$headers = "From: webmaster@nilin.se";
+$headers =
+  "From: webmaster@nilin.se\r\n" .
+  "Content-Type: text/plain; charset=utf-8\r\n" .
+  "Content-Transfer-Encoding: quoted-printable";
 
-mail($dbemail,$subject,$txt,$headers);
+mail($dbemail, $subject, quoted_printable_encode($txt), $headers);
 header("Location: pwdmailsent.php");
 exit;  
 ?>
