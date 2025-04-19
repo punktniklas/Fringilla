@@ -1,4 +1,6 @@
 <?php require 'db.php';?>
+<?php require 'utils.php';?>
+
 <html xmlns="http://www.w3.org/1999/xhtm">
   <head>
     <title>Alla dagar med resultat</title>
@@ -15,12 +17,14 @@
     </td>
     <td valign="top" id="main">
 
-    <h1>Alla dagar med resultat</h1>
+    <h1>Alla dagar med resultat <?php echo formatSeason($selectedSeason); ?></h1>
     <ul>
 
 <?php
-$sql = "SELECT DISTINCT Date FROM Games WHERE Winner IS NOT NULL ORDER BY Date";
-$result = $conn->query($sql);
+$stmt = $conn->prepare("SELECT DISTINCT Date FROM Games WHERE Winner IS NOT NULL AND SeasonId = ? ORDER BY Date");
+$stmt->bind_param("s", $selectedSeason);
+$stmt->execute();
+$result = $stmt->get_result();
 
 while($row = $result->fetch_assoc()) {
   echo "<li><a href='dayresults.php?day=" . $row["Date"] . "'>" . $row["Date"] . "</a></li>\n";
