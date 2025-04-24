@@ -33,6 +33,11 @@ foreach $gameDay (@$gameWeek) {
 	$startTimeApiStr =~ /(\d\d\d\d-\d\d-\d\d)T(\d\d:\d\d:\d\d)Z/ or die "Invalid start time: $startTimeApiStr";
 	$startDateStr = $1;
 	$startTimeStr = $2;
+        $gameScheduleState = $game->{'gameScheduleState'};
+        if($gameScheduleState ne "OK") {
+            print STDERR "Warning: Skipping $homeTeamAbbr-$awayTeamAbbr, gameScheduleState = '$gameScheduleState'\n";
+            next;
+        }
 	$order++;
 	print "INSERT INTO Games(SeasonId, NhlId, Home, Away, Date, StartTime, OrderInDay) VALUES('$season-$gameType', '$nhlId', (SELECT TeamId FROM Teams WHERE Code = '$homeTeamAbbr'), (SELECT TeamId FROM Teams WHERE Code = '$awayTeamAbbr'), '$date', '$startDateStr $startTimeStr+00:00', $order);\n";
     }
