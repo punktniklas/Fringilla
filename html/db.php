@@ -1,7 +1,7 @@
 <?php
 session_start();
 $user = array_key_exists("user", $_SESSION) ? $_SESSION["user"] : "";
-$currentSeason = "20242025-3";
+$currentSeason = "20252026-2";
 $selectedSeason = $currentSeason;
 
 require 'dbpw.php';

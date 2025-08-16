@@ -46,6 +46,7 @@ CREATE TABLE Seasons (
 
 INSERT INTO Seasons(SeasonId, SeasonType) VALUES('20242025-2', 'Regular');
 INSERT INTO Seasons(SeasonId, SeasonType) VALUES('20242025-3', 'PlayOff');
+INSERT INTO Seasons(SeasonId, SeasonType) VALUES('20252026-2', 'Regular');
 
 CREATE TABLE Games (
   GameId INT NOT NULL AUTO_INCREMENT,
