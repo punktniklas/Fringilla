@@ -19,8 +19,14 @@
     <h2>Tipsresultat</h2>
 
 <?php
-$sql = "SELECT DISTINCT Date FROM Games WHERE Winner IS NOT NULL ORDER BY Date DESC LIMIT 1";
-$result = $conn->query($sql);
+$stmt = $conn->prepare(
+  "SELECT DISTINCT Date " .
+  "FROM Games " .
+  "WHERE Winner IS NOT NULL AND SeasonId = ? " .
+  "ORDER BY Date DESC LIMIT 1");
+$stmt->bind_param("s", $selectedSeason);
+$stmt->execute();
+$result = $stmt->get_result();
 
 if($row = $result->fetch_assoc()) {
   echo "Klicka här för <a href='dayresults.php?day=" . $row["Date"] . "'>senaste resultat</a> (" . $row["Date"] . ")<br/>\n";
@@ -36,8 +42,14 @@ if($row = $result->fetch_assoc()) {
 if(!empty($user)) {
   date_default_timezone_set("America/Los_Angeles");
   $today = date("Y-m-d");
-  $sql = "SELECT Date, Date = '$today' AS IsToday FROM Games WHERE Date >= '$today' ORDER BY Date LIMIT 1";
-  $result = $conn->query($sql);
+  $stmt = $conn->prepare(
+    "SELECT Date, Date = '$today' AS IsToday " .
+    "FROM Games " .
+    "WHERE Date >= '$today' AND SeasonId = ? " .
+    "ORDER BY Date LIMIT 1");
+  $stmt->bind_param("s", $selectedSeason);
+  $stmt->execute();
+  $result = $stmt->get_result();
 
   if($row = $result->fetch_assoc()) {
     if($row["IsToday"]) {
@@ -79,7 +91,7 @@ if(!empty($user)) {
 </table>
 
 <h2>Säsong</h2>
-<?php echo "Just nu visas " . formatSeason($selectedSeason) . "</br>"; ?>
+<?php echo "Just nu visas " . formatSeason($selectedSeason) . "</p>"; ?>
 
     <form action="postchangeseason.php" method="POST">
       Tillgängliga säsonger
