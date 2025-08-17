@@ -1,4 +1,5 @@
 <?php require 'db.php';?>
+<?php require 'utils.php';?>
 <html xmlns="http://www.w3.org/1999/xhtm">
   <head>
     <title>NHL-bloggens tips</title>
@@ -67,7 +68,7 @@ if(!empty($user)) {
     "GROUP BY UserId " .
     "ORDER BY Points DESC " .
     "LIMIT 10;");
-  $stmt->bind_param("s", $currentSeason);
+  $stmt->bind_param("s", $selectedSeason);
   $stmt->execute();
   $result = $stmt->get_result();
 
@@ -76,6 +77,22 @@ if(!empty($user)) {
   }
 ?>
 </table>
+
+<h2>Säsong</h2>
+<?php echo "Just nu visas " . formatSeason($selectedSeason) . "</br>"; ?>
+
+    <form action="postchangeseason.php" method="POST">
+      Tillgängliga säsonger
+      <select name="seasonId">
+<?php
+  $result = $conn->query("SELECT SeasonId FROM Seasons ORDER BY SeasonId;");
+  while($row = $result->fetch_assoc()) {
+    echo "<option value='" . $row["SeasonId"] . "'" . ($row["SeasonId"] == $selectedSeason ? " selected='true'" : "") . ">" . formatSeason($row["SeasonId"]) . "</option>\n";
+  }
+?>
+      </select>
+      <input type="submit" value="Byt">
+    </form>
 
     </td>
   </tr>

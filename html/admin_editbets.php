@@ -33,7 +33,10 @@
 <?php
   date_default_timezone_set("America/Los_Angeles");
   $today = date("Y-m-d");
-  $result = $conn->query("SELECT DISTINCT Date FROM Games ORDER BY Date;");
+  $stmt = $conn->prepare("SELECT DISTINCT Date FROM Games WHERE SeasonId = ? ORDER BY Date;");
+  $stmt->bind_param("s", $selectedSeason);
+  $stmt->execute();
+  $result = $stmt->get_result();
   while($row = $result->fetch_assoc()) {
     echo "<option value='" . $row["Date"] . "'" . ($row["Date"] == $today ? " selected='true'" : "") . ">" . $row["Date"] . "</option>\n";
   }
