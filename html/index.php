@@ -35,13 +35,17 @@ if($row = $result->fetch_assoc()) {
 if(!empty($user)) {
   date_default_timezone_set("America/Los_Angeles");
   $today = date("Y-m-d");
-  $sql = "SELECT 1 FROM Games WHERE Date = '$today' LIMIT 1";
+  $sql = "SELECT Date, Date = '$today' AS IsToday FROM Games WHERE Date >= '$today' ORDER BY Date LIMIT 1";
   $result = $conn->query($sql);
 
   if($row = $result->fetch_assoc()) {
-    echo "Klicka här för att <a href='bet.php?day=$today'>tippa dagens matcher</a> ($today)<br/>\n";
+    if($row["IsToday"]) {
+      echo "Klicka här för att <a href='bet.php?day=$today'>tippa dagens matcher</a> ($today)<br/>\n";
+    } else {
+      echo "Klicka här för att <a href='bet.php?day=" . $row["Date"] . "'>tippa närmaste tipsdag</a> (" . $row["Date"] . ")<br/>\n";
+    }
   } else {
-    echo "Inga matcher att tippa idag ($today)<br/>\n";
+    echo "Inga kommande matcher att tippa.<br/>\n";
   }
   echo "Klicka här för <a href='allbetdays.php'>övriga tipsdagar</a><p/>\n";
   } else {
