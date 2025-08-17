@@ -42,11 +42,12 @@ if($row = $result->fetch_assoc()) {
 if(!empty($user)) {
   date_default_timezone_set("America/Los_Angeles");
   $today = date("Y-m-d");
+  $tomorrow = date("Y-m-d", strtotime("tomorrow"));
   $stmt = $conn->prepare(
-    "SELECT Date, Date = '$today' AS IsToday " .
+    "SELECT DISTINCT Date, Date = '$today' AS IsToday, Date = '$tomorrow' AS IsTomorrow " .
     "FROM Games " .
     "WHERE Date >= '$today' AND SeasonId = ? " .
-    "ORDER BY Date LIMIT 1");
+    "ORDER BY Date LIMIT 2");
   $stmt->bind_param("s", $selectedSeason);
   $stmt->execute();
   $result = $stmt->get_result();
@@ -54,6 +55,9 @@ if(!empty($user)) {
   if($row = $result->fetch_assoc()) {
     if($row["IsToday"]) {
       echo "Klicka här för att <a href='bet.php?day=$today'>tippa dagens matcher</a> ($today)<br/>\n";
+      if(($row = $result->fetch_assoc()) && $row["IsTomorrow"]) {
+        echo "Klicka här för att <a href='bet.php?day=$tomorrow'>tippa morgondagens matcher</a> ($tomorrow)<br/>\n";
+      }
     } else {
       echo "Klicka här för att <a href='bet.php?day=" . $row["Date"] . "'>tippa närmaste tipsdag</a> (" . $row["Date"] . ")<br/>\n";
     }
