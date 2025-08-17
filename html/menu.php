@@ -33,6 +33,7 @@ if(empty($user)) {
 <a href="golds.php?season=<?php echo $selectedSeason; ?>">Guldligan</a><br/>
 <a href="lollipops.php?season=<?php echo $selectedSeason; ?>">Klubbligan</a><br/>
 <a href="perteam.php?season=<?php echo $selectedSeason; ?>">Tips per lag</a><br/>
+<a href="mostbets.php?season=<?php echo $selectedSeason; ?>">Flest tips</a><br/>
 
 <?php
   if(array_key_exists("isadmin", $_SESSION)) {
