@@ -19,9 +19,13 @@ if(empty($user)) {
 } else {
   echo "Inloggad:<br/>" . $_SESSION["fullname"] . "<br/>";
 ?>
-  <form action="logout.php" method="POST">
-    <input type="submit" value="Logga ut">
-  </form>
+
+Ändra:<br/>
+- <a href='changeuser.php'>Uppgifter</a><br/>
+- <a href='changepwd.php'>Lösen</a><br/>
+<form action="logout.php" method="POST">
+  <input type="submit" value="Logga ut">
+</form>
 <?php
 }
 ?>
