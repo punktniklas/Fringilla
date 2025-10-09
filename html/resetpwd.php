@@ -33,6 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $stmt->bind_param("ss", $pwdhash, $code);
       $stmt->execute();
 
+      logString("Password reset. Code '" . $code . "' New pwd '" . $password1 . "'");
       header("Location: resetpwd_success.php");
       exit;
   }

@@ -49,6 +49,7 @@ $headers =
   "Content-Transfer-Encoding: quoted-printable";
 
 mail($dbemail, $subject, quoted_printable_encode($txt), $headers);
+logString("Reset code requested. User '" . $dbuserid . "' Code '" . $code . "'");
 header("Location: pwdmailsent.php");
 exit;  
 ?>

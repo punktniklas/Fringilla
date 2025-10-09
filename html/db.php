@@ -9,4 +9,9 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
+
+function logString($str) {
+    date_default_timezone_set("America/Los_Angeles");
+    error_log(date("Y-m-d H:i:s") . " : " . $str . "\n", 3, "/var/local/log/nhltips_logins.log");
+}
 ?>

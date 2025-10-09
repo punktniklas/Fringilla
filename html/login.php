@@ -21,6 +21,7 @@
     }
   } else {
     $_SESSION["badlogin"] = TRUE;
+    logString("Bad login. User '" . $userid . "' - pwd '" . $password . "'");
   }
   header("Location: index.php");
   exit;
