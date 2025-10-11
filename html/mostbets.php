@@ -24,7 +24,7 @@
 <?php
 
   $stmt = $conn->prepare(
-    "SELECT u.Name, COUNT(*) AS NumBets, (SELECT COUNT(*) FROM Games WHERE SeasonId = ?) AS NumGames " .
+    "SELECT u.Name, COUNT(*) AS NumBets, (SELECT COUNT(*) FROM Games WHERE SeasonId = ? AND Winner IS NOT NULL) AS NumGames " .
     "FROM Bets b " .
     "JOIN Games g USING (GameId) " .
     "JOIN Users u USING (UserId) " .
