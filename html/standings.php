@@ -42,6 +42,27 @@
 ?>
 </table>
 
+<h2>Sammanlagt</h2>
+    
+<table class="infotable">
+<?php
+
+  $stmt = $conn->prepare(
+    "SELECT SUM(b.Winner = g.Winner) AS Points, COUNT(*) AS Bets, SUM(b.Winner = g.Winner) / COUNT(*) AS BetRatio " .
+    "FROM Bets b " .
+    "JOIN Games g USING (GameId) " .
+    "WHERE g.SeasonId = ? AND g.Winner IS NOT NULL ");
+  $stmt->bind_param("s", $season);
+  $stmt->execute();
+  $result = $stmt->get_result();
+
+  echo "<tr><th>Antal rätt&nbsp;</th><th>Tippade matcher&nbsp;</th><th>Andel rätt</th></tr>\n";
+  while($row = $result->fetch_assoc()) {
+    echo "<tr><td>" . $row["Points"] . "</td><td>" . $row["Bets"] . "</td><td>" . ((int)($row["BetRatio"] * 100)) . "%</td></tr>\n";
+  }
+?>
+</table>
+
 </td>
 </tr>
 </table>
