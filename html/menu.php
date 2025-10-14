@@ -46,6 +46,7 @@ if(empty($user)) {
 <h3>Admin</h3>
 <a href="admin_editbets.php">Ändra användares tips</a><br/>
 <a href="admin_editscores.php">Ändra matchresultat</a><br/>
+<a href="admin_viewbets.php">Lagda tips</a><br/>
 <?php
   }
 ?>
