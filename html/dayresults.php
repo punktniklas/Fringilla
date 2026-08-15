@@ -95,6 +95,42 @@
   }
 ?>
     </table>
+
+    <h2>Rader</h2>
+    <table class="infotable">
+    <tr><th>Rad&nbsp;</th><th>Antal</th></tr>
+<?php
+
+  $stmt = $conn->prepare(
+    "SELECT BetStr, COUNT(*) AS Cnt " .
+    "FROM ( " .
+    "SELECT " .
+    "  DISTINCT UserId AS dUserId, " .
+    "(SELECT GROUP_CONCAT(Betsign SEPARATOR '-') " .
+    "FROM ( " .
+    "SELECT CASE " .
+    "    WHEN Winner IS NOT NULL THEN Winner " .
+    "    WHEN Winner IS NULL THEN 'X' " .
+    "  END AS BetSign " .
+    "FROM " .
+    "  (SELECT GameId, OrderInDay FROM Games WHERE Date = ? ORDER BY OrderInDay) x " .
+    "  LEFT OUTER JOIN (SELECT GameId, Winner FROM Bets WHERE UserId = b.UserId) y " .
+    "  ON(x.GameId = y.GameId) " .
+    ") AS foo) AS BetStr " .
+    "FROM Games g JOIN Bets b ON(g.GameId = b.GameId) WHERE Date = ?) AS bar " .
+    "GROUP BY BetStr " .
+    "ORDER BY Cnt DESC");
+  $stmt->bind_param("ss", $day, $day);
+  $stmt->execute();
+  $result = $stmt->get_result();
+
+  while($row = $result->fetch_assoc()) {
+    echo "<tr><td>" . $row["BetStr"] . "&nbsp;</td><td>" . $row["Cnt"] . "</td></tr>\n";
+  }
+?>
+    </table>
+
+
 </td>
 </tr>
 </table>
